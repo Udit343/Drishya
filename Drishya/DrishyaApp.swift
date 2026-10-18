@@ -1,11 +1,9 @@
-//
 //  DrishyaApp.swift
 //  Drishya
-//
 //  Created by UDIT PANDEY on 28/09/26.
-//
 
 import SwiftUI
+import SwiftData
 
 @main
 struct DrishyaApp: App {
@@ -13,5 +11,6 @@ struct DrishyaApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Title.self)
     }
 }

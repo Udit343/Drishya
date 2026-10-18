@@ -1,18 +1,45 @@
-//
 //  HorizontalListView.swift
 //  Drishya
-//
 //  Created by UDIT PANDEY on 01/10/26.
-//
+
 
 import SwiftUI
-
 struct HorizontalListView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    let header : String
+    let titles : [Title]
+    var onSelect : (Title)->Void
+    
+    var body: some View{
+        VStack( alignment: .leading){
+            Text(header).font(.title)
+            
+            ScrollView(.horizontal){
+                LazyHStack{
+                    ForEach(titles) { title in
+                        AsyncImage(url: URL(string: title.posterPath ?? "")){ image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 120, height: 200)
+                        .onTapGesture {
+                            onSelect(title)
+                        }
+                    }
+                }
+            }
+        }
+        .frame(height: 250)
+        .padding(10)
     }
 }
 
 #Preview {
-    HorizontalListView()
+    HorizontalListView(header: Constant.trendingTVString, titles: Title.previewTitles) { title in
+        
+    }
 }
